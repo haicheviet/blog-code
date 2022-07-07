@@ -19,6 +19,11 @@ class Keys:
     def __init__(self, tweet_url: str, last_update: int):
         self.tweet_url = tweet_url
         self.last_update = int
+        self.prefix = self.generate_prefix()
+
+    @staticmethod
+    def generate_prefix():
+        return 
 
     @prefixed_key
     def sentiment_key(self) -> str:

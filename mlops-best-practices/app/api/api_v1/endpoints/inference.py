@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import BackgroundTasks, APIRouter
 from pydantic import HttpUrl
 from starlette.requests import Request
 
@@ -14,6 +14,7 @@ router = APIRouter()
 async def inference(
     request: Request,
     twitter_link: HttpUrl,
+    background_tasks: BackgroundTasks
 ):
 
     twitter = TwitterSentiment(**request.app.model_params)

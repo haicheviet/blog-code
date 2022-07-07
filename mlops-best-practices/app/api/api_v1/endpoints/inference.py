@@ -1,10 +1,10 @@
-from starlette.requests import Request
+from fastapi import APIRouter
 from pydantic import HttpUrl
-from fastapi import APIRouter, HTTPException
+from starlette.requests import Request
 
-from app.schemas import SentimentResponse
-from app.decorator import async_log_response
 from app.core import TwitterSentiment
+from app.decorator import async_log_response
+from app.schemas import SentimentResponse
 
 router = APIRouter()
 

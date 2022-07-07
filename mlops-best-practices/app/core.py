@@ -1,8 +1,7 @@
-from enum import Enum
-from typing import Optional
-import numpy as np
 import logging
+from typing import Optional
 
+import numpy as np
 import torch
 from scipy.special import softmax
 from transformers import AutoModelForSequenceClassification, AutoTokenizer

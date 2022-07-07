@@ -1,16 +1,14 @@
 import json
 import logging
-import os
 import time
 from logging.config import dictConfig
 
-import aioredis
 from fastapi import FastAPI, Request
-from app.config import settings
-from app.logger import DEFAULT_LOGGER
-from app.core import get_model, get_tokenizer
-from app.api.api_v1.api import api_router
 
+from app.api.api_v1.api import api_router
+from app.config import settings
+from app.core import get_model, get_tokenizer
+from app.logger import DEFAULT_LOGGER
 
 dictConfig(DEFAULT_LOGGER)
 

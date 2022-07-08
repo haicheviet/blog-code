@@ -32,7 +32,7 @@ model_params = {
     "tokenizer": get_tokenizer(),
 }
 app.model_params = model_params  # type: ignore
-app.logger.info("Done loading embedding")  # type: ignore
+app.logger.info("Done loading model")  # type: ignore
 
 
 # Register api router with app

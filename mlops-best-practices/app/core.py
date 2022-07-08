@@ -1,10 +1,11 @@
 import logging
+import os
 from typing import Optional
 
 import numpy as np
 import torch
 from scipy.special import softmax
-from transformers import AutoModelForSequenceClassification, AutoTokenizer
+from transformers import AutoTokenizer
 
 from app.config import settings
 from app.schemas import SentimentLabel
@@ -21,7 +22,7 @@ def get_tokenizer():
 
 
 def get_model():
-    model = AutoModelForSequenceClassification.from_pretrained(settings.DATADIR)
+    model = torch.jit.load(os.path.join(settings.DATADIR, "trace_model.pt"))
     return model
 
 

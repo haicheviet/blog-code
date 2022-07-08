@@ -12,6 +12,8 @@ class Settings(BaseSettings):
     TWITTER_ACCESS_TOKEN_SECRET: str
     FIRST_SUPERUSER: str
     FIRST_SUPERUSER_PASSWORD: str
+    REDIS_HOST: str
+    REDIS_PASSWORD: str
 
 
 settings = Settings()

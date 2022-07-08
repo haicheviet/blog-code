@@ -23,3 +23,4 @@ class SentimentLabel(str, Enum):
 
 class SentimentResponse(CamelModel):
     sentiment_analyst: SentimentLabel
+    text_input: str

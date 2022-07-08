@@ -1,12 +1,12 @@
 import secrets
-from aioredis import create_redis_pool, Redis
+from typing import AsyncGenerator
 
-from typing import AsyncIterator
-
+from aioredis import create_redis_pool
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
 from app.config import settings
+from app.feature_store.backends.redis import RedisBackend
 
 security = HTTPBasic()
 
@@ -27,8 +27,8 @@ def get_current_username(credentials: HTTPBasicCredentials = Depends(security)) 
     return credentials.username
 
 
-async def init_redis_pool(host: str, password: str) -> AsyncIterator[Redis]:
-    pool = await create_redis_pool(f"redis://{host}", password=password)
-    yield pool
+async def get_backend() -> AsyncGenerator:
+    pool = await create_redis_pool((settings.REDIS_HOST, settings.REDIS_PASSWORD))
+    yield RedisBackend(redis=pool)
     pool.close()
     await pool.wait_closed()

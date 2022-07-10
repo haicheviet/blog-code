@@ -2,8 +2,9 @@ from aioredis import Redis
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from pydantic import HttpUrl
 from starlette.requests import Request
+from tweepy import API
 
-from app.api.deps import get_backend
+from app.api.deps import get_backend, get_twitter_api
 from app.core import TwitterSentiment
 from app.decorator import async_log_response
 from app.feature_store.backends import Backend
@@ -20,7 +21,10 @@ async def inference(
     tweetUrl: HttpUrl,
     background_tasks: BackgroundTasks,
     feature_store: Backend = Depends(get_backend),
+    twitter_api: API = Depends(get_twitter_api),
 ):
+    tweet_id = tweetUrl.
+    tweet  = twitter_api.get_tweet()
     key = Keys(tweet_url=tweetUrl, last_update=123123)
     text = "hello world"
     data = await get_cache(keys=key, feature_store=feature_store)

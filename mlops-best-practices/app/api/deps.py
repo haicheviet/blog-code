@@ -1,5 +1,6 @@
 import secrets
 from typing import AsyncGenerator
+import tweepy
 
 from aioredis import create_redis_pool
 from fastapi import Depends, HTTPException, status
@@ -32,3 +33,11 @@ async def get_backend() -> AsyncGenerator:
     yield RedisBackend(redis=pool)
     pool.close()
     await pool.wait_closed()
+
+
+def get_twitter_api():
+    # Authenticate to Twitter
+    auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
+    auth.set_access_token(settings.TWITTER_ACCESS_TOKEN_KEY, settings.TWITTER_CONSUMER_SECRET)
+    
+    yield tweepy.API(auth)

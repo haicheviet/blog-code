@@ -11,7 +11,7 @@ async def set_cache(data, keys: Keys, feature_store: Backend):
     await feature_store.set(
         keys.cache_key(),
         json.dumps(data),
-        ex=SIXTY_DAYS,
+        expire=SIXTY_DAYS,
     )
 
 

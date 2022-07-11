@@ -1,7 +1,7 @@
 import secrets
 from typing import AsyncGenerator
-import tweepy
 
+import tweepy
 from aioredis import create_redis_pool
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
@@ -37,7 +37,11 @@ async def get_backend() -> AsyncGenerator:
 
 def get_twitter_api():
     # Authenticate to Twitter
-    auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
-    auth.set_access_token(settings.TWITTER_ACCESS_TOKEN_KEY, settings.TWITTER_CONSUMER_SECRET)
-    
+    auth = tweepy.OAuthHandler(
+        settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET
+    )
+    auth.set_access_token(
+        settings.TWITTER_ACCESS_TOKEN_KEY, settings.TWITTER_ACCESS_TOKEN_SECRET
+    )
+
     yield tweepy.API(auth)

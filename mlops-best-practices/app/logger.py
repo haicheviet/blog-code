@@ -11,7 +11,7 @@ format_log = (
 
 DEFAULT_LOGGER = {
     "version": 1,
-    "disable_existing_loggers": True,
+    "disable_existing_loggers": False,
     "formatters": {"standard": {"format": format_log}},
     "handlers": {
         "api": {

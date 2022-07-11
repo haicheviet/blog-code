@@ -1,4 +1,4 @@
-from pydantic import HttpUrl
+from tweepy import models
 
 
 def prefixed_key(f):
@@ -17,13 +17,12 @@ def prefixed_key(f):
 
 
 class Keys:
-    def __init__(self, tweet_url: HttpUrl, last_update: int):
-        self.prefix = self.generate_prefix(tweet_url)
-        self.last_update = last_update
+    def __init__(self, tweet: models.Status):
+        self.prefix = self.generate_prefix(tweet)
 
     @staticmethod
-    def generate_prefix(tweet_url: HttpUrl):
-        return
+    def generate_prefix(tweet: models.Status):
+        return f"{tweet.author.id}:{tweet.id}"
 
     @prefixed_key
     def cache_key(self) -> str:

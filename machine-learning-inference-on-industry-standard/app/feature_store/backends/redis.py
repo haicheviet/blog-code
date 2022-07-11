@@ -24,8 +24,9 @@ class RedisBackend(Backend):
     async def clear(self, namespace: str = None, key: str = None) -> int:
         if namespace:
             lua = (
+                "local foo = {}"
                 f"for i, name in ipairs(redis.call('KEYS', '{namespace}:*')) "
-                "do redis.call('DEL', name); end"
+                "do table.insert(foo,redis.call('DEL', name)); end; return foo"
             )
             return await self.redis.eval(lua)
         elif key:

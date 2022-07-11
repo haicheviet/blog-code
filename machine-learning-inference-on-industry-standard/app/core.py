@@ -60,6 +60,7 @@ class TwitterSentiment:
                 range(scores.shape[0]),
             )
         )
+        text = text.replace("\n", " ")
         logger.info(f"{text} have prediction: {prediction}")
 
         return SentimentLabel(prediction[0][0])

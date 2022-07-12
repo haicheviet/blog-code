@@ -31,26 +31,38 @@ ARG AWS_SECRET_ACCESS_KEY
 
 ENV AWS_SECRET_ACCESS_KEY "$AWS_SECRET_ACCESS_KEY"
 
+RUN echo "$S3_DATA_PATH"
+
 COPY download_model.py ./download_model.py
 
-RUN pip install boto3 tqdm && python download_model.py
+RUN pip install boto3 tqdm
+
+RUN python download_model.py
 
 
 FROM base_img AS compile-image
 
-RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise main universe" >>/etc/apt/source.list
+RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise main universe" >> /etc/apt/source.list
 
-RUN apt-get update -qq &&
-    apt-get update -y &&
-    apt-get install curl python3-dev -y
+RUN apt-get update -qq && \
+    apt-get update -y && \
+    apt-get install curl build-essential python3-dev  -y
 
+# Download rust-chain to install tokenizer
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+RUN cargo --version
+
+RUN python -m venv /opt/venv
 # Make sure we use the virtualenv:
 ENV PATH="/opt/venv/bin:$PATH"
 
 # Install Poetry
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python &&
-    cd /usr/local/bin &&
-    ln -s /opt/poetry/bin/poetry &&
+RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python && \
+    cd /usr/local/bin && \
+    ln -s /opt/poetry/bin/poetry && \
     poetry config virtualenvs.create false
 
 # Install dependency

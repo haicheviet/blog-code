@@ -17,7 +17,7 @@ docker pull $DOCKER_IMAGE_APP:compile-stage-$TAG || true
 docker pull $DOCKER_IMAGE_APP:$TAG_LATEST || true
 
 # Build the download data stage:
-docker build --file docker/Dockerfile \
+docker build --file Dockerfile \
     --target download-model-image \
     --label git-commit=$CI_COMMIT_SHORT_SHA \
     --build-arg APP_ENV="$APP_ENV" \
@@ -33,6 +33,11 @@ docker build --file Dockerfile \
     --target compile-image \
     --label git-commit=$CI_COMMIT_SHORT_SHA \
     --build-arg APP_ENV="$APP_ENV" \
+    --build-arg S3_DATA_PATH="$S3_DATA_PATH" \
+    --build-arg BUCKET_NAME="$BUCKET_NAME" \
+    --build-arg AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
+    --build-arg AWS_DEFAULT_REGION="$AWS_DEFAULT_REGION" \
+    --build-arg AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" \
     --cache-from $DOCKER_IMAGE_APP:compile-stage-$TAG \
     --cache-from $DOCKER_IMAGE_APP:download-model-stage-$TAG \
     --tag $DOCKER_IMAGE_APP:compile-stage-$TAG .
@@ -42,7 +47,11 @@ docker build --file Dockerfile \
     --target runtime-image \
     --label git-commit=$CI_COMMIT_SHORT_SHA \
     --build-arg APP_ENV="$APP_ENV" \
+    --build-arg S3_DATA_PATH="$S3_DATA_PATH" \
+    --build-arg BUCKET_NAME="$BUCKET_NAME" \
+    --build-arg AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
+    --build-arg AWS_DEFAULT_REGION="$AWS_DEFAULT_REGION" \
+    --build-arg AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" \
     --cache-from $DOCKER_IMAGE_APP:compile-stage-$TAG \
     --cache-from $DOCKER_IMAGE_APP:download-model-stage-$TAG \
-    --cache-from $DOCKER_IMAGE_APP:$TAG \
     --tag $DOCKER_IMAGE_APP:$TAG .

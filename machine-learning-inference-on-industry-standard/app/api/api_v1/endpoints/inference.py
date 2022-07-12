@@ -22,7 +22,10 @@ async def inference(
     feature_store: Backend = Depends(get_backend),
     twitter_api: API = Depends(get_twitter_api),
 ):
-    tweet = twitter_api.get_status(tweetUrl.split("/")[-1])
+    try:
+        tweet = twitter_api.get_status(tweetUrl.split("/")[-1])
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error{type(e).__name__}: {e}")
     key = Keys(tweet=tweet)
     data = await get_cache(keys=key, feature_store=feature_store)
     if not data:

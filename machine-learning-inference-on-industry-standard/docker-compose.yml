@@ -8,6 +8,10 @@ services:
       - 2000:2000
     links:
       - redis
+    volumes:
+      - "$PWD/logs:/app/logs"
+      - "$PWD/app:/app/app"
+
   
 
   redis:

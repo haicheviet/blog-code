@@ -6,5 +6,4 @@ set -e
 TAG=${TAG?Variable not set}
 sh ./scripts/build.sh
 
-docker push $DOCKER_IMAGE_APP:compile-stage-$TAG
 docker push $DOCKER_IMAGE_APP:$TAG

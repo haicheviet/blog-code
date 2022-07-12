@@ -31,8 +31,6 @@ ARG AWS_SECRET_ACCESS_KEY
 
 ENV AWS_SECRET_ACCESS_KEY "$AWS_SECRET_ACCESS_KEY"
 
-RUN echo "$S3_DATA_PATH"
-
 COPY download_model.py ./download_model.py
 
 RUN pip install boto3 tqdm

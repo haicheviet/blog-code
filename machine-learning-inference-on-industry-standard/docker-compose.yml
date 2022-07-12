@@ -12,8 +12,6 @@ services:
       - "$PWD/logs:/app/logs"
       - "$PWD/app:/app/app"
 
-  
-
   redis:
     image: redis:latest
     

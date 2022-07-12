@@ -5,7 +5,7 @@ echo ">>>>>>>>>>>Cluster for $PROJECT_NAME - $APP_ENV<<<<<<<<<<<<"
 sleep 1
 
 aws cloudformation deploy \
-    --template-file aws/cluster-fargate.yml \
+    --template-file cloudformation/cluster-fargate.yml \
     --stack-name cluster-fargate-$APP_ENV-$PROJECT_NAME \
     --capabilities CAPABILITY_NAMED_IAM \
     --parameter-overrides ParentVPCStack=vpc-$APP_ENV-$PROJECT_NAME \

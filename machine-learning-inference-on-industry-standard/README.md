@@ -1,4 +1,3 @@
-## Infrastructure setup
 
 First, make sure you copy the following file and edit its contents:
 
@@ -6,6 +5,26 @@ First, make sure you copy the following file and edit its contents:
 cp .env_template .env
 vim .env
 ```
+
+## Local setup
+
+Set redis_host enviroment to `redis`
+
+Once you have the .env setup, run the following script to init docker-compose service:
+
+```bash
+make build-local
+```
+
+When done, you should have listed:
+
+```bash
+Service is on http://localhost:8000/
+```
+
+Access the swagger docs in <http://localhost:8000/docs>
+
+## Infrastructure setup
 
 Variables:
 
@@ -16,7 +35,7 @@ Variables:
 
 Once you have the .env setup, run the following script to initialize VPC, ECR/ECS and App Service.
 
-```
+```bash
 make build-infra
 ```
 

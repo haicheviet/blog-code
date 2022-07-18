@@ -51,6 +51,7 @@ Metadata:
           - AppImage
           - AppCommand
           - AppPort
+          - AppEnvironmentS3Arn
           - AppEnvironment1Key
           - AppEnvironment1Value
           - AppEnvironment2Key
@@ -203,6 +204,10 @@ Parameters:
     Default: 80
     MinValue: 1
     MaxValue: 49150
+  AppEnvironmentS3Arn:
+    Description: "Optional s3 arn enviroment file."
+    Type: String
+    Default: ""
   AppEnvironment1Key:
     Description: "Optional environment variable 1 key for app container."
     Type: String
@@ -462,6 +467,7 @@ Conditions:
   HasClientSecurityGroup3: !Not [!Equals [!Ref ParentClientStack3, ""]]
   HasTaskPolicies: !Not [!Equals [!Ref TaskPolicies, ""]]
   HasAppCommand: !Not [!Equals [!Ref AppCommand, ""]]
+  HasAppEnvironmentS3Arn: !Not [!Equals [!Ref AppEnvironmentS3Arn, ""]]
   HasAppEnvironment1Key: !Not [!Equals [!Ref AppEnvironment1Key, ""]]
   HasAppEnvironment2Key: !Not [!Equals [!Ref AppEnvironment2Key, ""]]
   HasAppEnvironment3Key: !Not [!Equals [!Ref AppEnvironment3Key, ""]]
@@ -636,6 +642,11 @@ Resources:
                 Resource: "*"
               - Effect: Allow
                 Action:
+                  - "s3:GetObject"
+                  - "s3:GetObjectVersion"
+                Resource: "*"
+              - Effect: Allow
+                Action:
                   - "logs:CreateLogStream"
                   - "logs:PutLogEvents"
                 Resource: !GetAtt "LogGroup.Arn"
@@ -724,6 +735,15 @@ Resources:
               "awslogs-region": !Ref "AWS::Region"
               "awslogs-group": !Ref LogGroup
               "awslogs-stream-prefix": app
+          EnvironmentFile:
+          - !If [
+                HasAppEnvironmentS3Arn,
+                {
+                  Type: s3,
+                  Value: !Ref AppEnvironmentS3Arn,
+                },
+                !Ref "AWS::NoValue",
+              ]
           Environment:
             - !If [
                 HasAppEnvironment1Key,

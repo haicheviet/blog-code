@@ -1,0 +1,7 @@
+build-infra:
+	. ./.env
+	./deploy.sh
+
+delete-infra:
+	. ./.env
+	./deploy.sh delete

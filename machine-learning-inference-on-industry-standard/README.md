@@ -1,7 +1,8 @@
+# Introduction
 
 First, make sure you copy the following file and edit its contents:
 
-```
+```bash
 cp .env_template .env
 vim .env
 ```
@@ -19,7 +20,7 @@ make build-local
 When done, you should have listed:
 
 ```bash
-Service is on http://localhost:8000/
+Service is on http://localhost:2000/
 ```
 
 Access the swagger docs in <http://localhost:2000/docs>

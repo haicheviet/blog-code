@@ -29,7 +29,7 @@ def get_current_username(credentials: HTTPBasicCredentials = Depends(security)) 
 
 
 async def get_backend() -> AsyncGenerator:
-    pool = await create_redis_pool((settings.REDIS_HOST, settings.REDIS_PASSWORD))
+    pool = await create_redis_pool((settings.REDIS_HOST, settings.REDIS_PORT))
     yield RedisBackend(redis=pool)
     pool.close()
     await pool.wait_closed()

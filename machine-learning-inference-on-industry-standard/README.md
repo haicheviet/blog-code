@@ -22,7 +22,7 @@ When done, you should have listed:
 Service is on http://localhost:8000/
 ```
 
-Access the swagger docs in <http://localhost:8000/docs>
+Access the swagger docs in <http://localhost:2000/docs>
 
 ## Infrastructure setup
 

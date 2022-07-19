@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     FIRST_SUPERUSER: str
     FIRST_SUPERUSER_PASSWORD: str
     REDIS_HOST: str
-    REDIS_PASSWORD: str
+    REDIS_PORT: str
 
 
 settings = Settings()

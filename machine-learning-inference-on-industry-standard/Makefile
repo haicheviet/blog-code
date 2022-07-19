@@ -6,7 +6,7 @@ build-local:
 	echo "Note: set environment REDIS_HOST to redis"
 	. ./.env
 	docker-compose up -d
-	echo "Service is on http://localhost:8000/"
+	echo "Service is on http://localhost:2000/ "
 
 delete-infra:
 	echo "Warning: Will delete all infra in about 3s"

@@ -1,0 +1,3 @@
+[submodule "fullstack-machine-learning-inference"]
+	path = fullstack-machine-learning-inference
+	url = https://github.com/haicheviet/fullstack-machine-learning-inference

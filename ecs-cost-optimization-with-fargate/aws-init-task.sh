@@ -13,7 +13,6 @@ aws cloudformation deploy \
         ParentClientStack1=client-$APP_ENV-$PROJECT_NAME \
         AppEnvironment1Value=$APP_ENV \
         AppImage=$APP_IMAGE \
-        AutoScaling=true \
         Cpu=0.25 \
         Memory=0.5 \
         DesiredCount=3 \

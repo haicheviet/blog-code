@@ -327,7 +327,7 @@ Parameters:
   MinCapacity:
     Description: "The minimum number of simultaneous tasks, that you want to run on the cluster."
     Type: Number
-    Default: 2
+    Default: 3
     ConstraintDescription: "Must be >= 1"
     MinValue: 1
   LogsRetentionInDays:

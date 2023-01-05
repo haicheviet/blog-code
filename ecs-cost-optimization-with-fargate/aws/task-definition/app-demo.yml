@@ -192,7 +192,7 @@ Parameters:
   AppImage:
     Description: "The Docker image to use for the app container. You can use images in the Docker Hub registry or specify other repositories (repository-url/image:tag)."
     Type: String
-    Default: "widdix/hello:v1"
+    Default: "nginx:latest"
   AppCommand:
     Description: "Optional commands (comma-delimited) used when starting the app container."
     Type: String
@@ -315,7 +315,7 @@ Parameters:
   DesiredCount:
     Description: "The number of simultaneous tasks, that you want to run on the cluster."
     Type: Number
-    Default: 2
+    Default: 3
     ConstraintDescription: "Must be >= 1"
     MinValue: 1
   MaxCapacity:
